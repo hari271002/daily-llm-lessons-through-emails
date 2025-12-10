@@ -72,19 +72,19 @@ body = data.get("body", "No body content returned.")
 
 # --- 2. Send via SendGrid ---
 
-raw_emails = os.getenv("to_emails") #receivers emails
+raw_emails = os.getenv("to_email") #receivers emails
 email_list = [email.strip() for email in raw_emails.split(",")]
-message = Mail(
-    from_email=os.getenv("from_email"),
-    to_emails=email_list,
-    subject=subject,
-    html_content=body 
-)
- 
-try:
-    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-    response = sg.send(message)
-    print(response.status_code)
-    print("email sent successfully")
-except Exception as e:
-    print(str(e))
+for email in email_list:
+    message = Mail(
+        from_email=os.getenv("from_email"),
+        to_emails=email,
+        subject=subject,
+        html_content=body 
+    )
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
+        print("email sent successfully")
+    except Exception as e:
+        print(str(e))
