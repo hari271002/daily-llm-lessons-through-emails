@@ -49,6 +49,7 @@ Content rules for the HTML inside "body":
 - Keep total content under 400 words.
 - Use simple, beginner-friendly language.
 - Lesson must build on previous days.
+- Do not include double quotes in the html text, strictly use only single quotes
 
 REMEMBER:
 Return ONLY the JSON object.
@@ -72,7 +73,7 @@ body = data.get("body", "No body content returned.")
 
 # --- 2. Send via SendGrid ---
 
-raw_emails = os.getenv("to_email") #receivers emails
+raw_emails = os.getenv("to_emails") #receivers emails
 email_list = [email.strip() for email in raw_emails.split(",")]
 for email in email_list:
     message = Mail(
